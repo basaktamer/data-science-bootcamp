@@ -8,64 +8,75 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         [x-cloak] { display: none !important; }
-        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #e2e8f0; }
-        .card-hover:hover { transform: translateY(-5px); border-color: #6366f1; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .project-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .project-card:hover { transform: translateY(-8px); border-color: #6366f1; }
+        .img-container img { transition: transform 0.6s ease; }
+        .project-card:hover .img-container img { transform: scale(1.1); }
     </style>
 </head>
-<body class="bg-[#f8fafc] text-slate-900" x-data="portfolio()">
+<body class="bg-[#f1f5f9] text-slate-800 font-sans" x-data="portfolio()">
 
-    <header class="bg-white border-b py-16 px-4">
-        <div class="max-w-7xl mx-auto text-center">
-            <h1 class="text-4xl font-black text-slate-900 uppercase tracking-tighter">Basak Tamer</h1>
-            <p class="text-indigo-600 font-bold mt-3 text-xs uppercase tracking-widest">Applied Data Science & Machine Learning | 41 Projects</p>
+    <header class="bg-white border-b border-slate-200 py-20 px-6 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+        <div class="max-w-5xl mx-auto text-center">
+            <h1 class="text-5xl font-black text-slate-900 tracking-tighter uppercase mb-4">Basak Tamer</h1>
+            <div class="inline-block px-4 py-1.5 bg-indigo-50 rounded-full">
+                <span class="text-indigo-600 font-bold text-xs uppercase tracking-widest italic">Data Scientist & Machine Learning Engineer</span>
+            </div>
         </div>
     </header>
 
-    <div class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex bg-slate-100 p-1 rounded-xl w-full md:w-auto shadow-inner">
-                <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-white shadow text-indigo-600' : 'text-slate-500'" class="flex-1 md:px-8 py-2 rounded-lg font-bold text-xs uppercase transition-all">All Projects</button>
-                <button @click="filter = 'Specialize'" :class="filter === 'Specialize' ? 'bg-white shadow text-indigo-600' : 'text-slate-500'" class="flex-1 md:px-8 py-2 rounded-lg font-bold text-xs uppercase transition-all">Bootcamp (DS)</button>
-                <button @click="filter = 'Kaggle'" :class="filter === 'Kaggle' ? 'bg-white shadow text-indigo-600' : 'text-slate-500'" class="flex-1 md:px-8 py-2 rounded-lg font-bold text-xs uppercase transition-all">Kaggle (C)</button>
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex p-1.5 bg-slate-100 rounded-2xl w-full md:w-auto">
+                <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-white shadow-md text-indigo-600 scale-105' : 'text-slate-500'" class="flex-1 md:px-8 py-2.5 rounded-xl font-black text-[11px] uppercase transition-all">All Work</button>
+                <button @click="filter = 'Specialize'" :class="filter === 'Specialize' ? 'bg-white shadow-md text-indigo-600 scale-105' : 'text-slate-500'" class="flex-1 md:px-8 py-2.5 rounded-xl font-black text-[11px] uppercase transition-all">Bootcamp</button>
+                <button @click="filter = 'Kaggle'" :class="filter === 'Kaggle' ? 'bg-white shadow-md text-indigo-600 scale-105' : 'text-slate-500'" class="flex-1 md:px-8 py-2.5 rounded-xl font-black text-[11px] uppercase transition-all">Kaggle</button>
             </div>
-            <div class="relative w-full md:w-80">
-                <input type="text" x-model="search" placeholder="Search projects or tools..." class="w-full pl-4 pr-10 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm transition-all">
+            <div class="relative w-full md:w-96">
+                <input type="text" x-model="search" placeholder="Filter by project name, model, or tool..." class="w-full bg-slate-50 border border-slate-200 pl-4 pr-10 py-3 rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none text-sm transition-all shadow-inner">
             </div>
         </div>
-    </div>
+    </nav>
 
-    <main class="max-w-7xl mx-auto px-4 py-12">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <main class="max-w-7xl mx-auto px-4 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             <template x-for="p in filteredProjects" :key="p.id">
-                <div class="card-hover bg-white rounded-3xl overflow-hidden flex flex-col h-full shadow-sm">
+                <div class="project-card bg-white rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col h-full">
                     
-                    <div class="h-48 relative overflow-hidden bg-slate-200">
-                        <img :src="p.image" 
-                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
-                             @error="$el.src='https://via.placeholder.com/600x400?text=Project+Media'">
-                        <div class="absolute top-4 left-4 bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black text-white tracking-widest shadow-lg" x-text="p.id"></div>
+                    <div class="img-container h-52 relative overflow-hidden bg-slate-200">
+                        <img :src="p.image.trim()" 
+                             class="w-full h-full object-cover"
+                             @error="$el.src='https://images.unsplash.com/photo-1551288049-bbda486387a3?q=80&w=1000&auto=format&fit=crop'">
+                        <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black text-slate-900 shadow-lg" x-text="p.id"></div>
                     </div>
 
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="font-extrabold text-slate-800 text-lg mb-4 leading-tight h-12 line-clamp-2" x-text="p.title"></h3>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <h3 class="font-black text-slate-900 text-xl mb-6 leading-tight min-h-[3.5rem]" x-text="p.title"></h3>
 
-                        <div class="space-y-4 flex-grow">
-                            <div class="bg-indigo-50/30 p-4 rounded-2xl border border-indigo-100/50">
-                                <div class="mb-3">
-                                    <span class="text-[9px] font-black text-indigo-400 uppercase block mb-1" x-text="p.type === 'Specialize' ? 'Primary Algorithm' : 'Winning Model'"></span>
-                                    <span class="text-xs font-bold text-slate-700 truncate block" x-text="p.tech"></span>
-                                </div>
+                        <div class="space-y-5 flex-grow">
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0"></div>
                                 <div>
-                                    <span class="text-[9px] font-black text-indigo-400 uppercase block mb-1">Performance Metric</span>
-                                    <span class="text-xs font-black text-indigo-700" x-text="p.metric"></span>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Architecture / Model</p>
+                                    <p class="text-sm font-semibold text-slate-700" x-text="p.tech"></p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="mt-1 w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></div>
+                                <div>
+                                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">Key Performance</p>
+                                    <p class="text-sm font-black text-emerald-600" x-text="p.metric"></p>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-6 pt-6 border-t border-slate-50 flex gap-3">
-                            <a :href="p.github" target="_blank" class="flex-1 bg-slate-900 text-white text-center py-3 rounded-xl text-[10px] font-bold hover:bg-black uppercase tracking-wider transition-all">GitHub</a>
-                            <a :href="p.huggingface" target="_blank" class="flex-1 bg-indigo-600 text-white text-center py-3 rounded-xl text-[10px] font-bold hover:bg-indigo-700 uppercase tracking-wider transition-all">Demo</a>
+                        <div class="mt-10 pt-8 border-t border-slate-100 flex gap-4">
+                            <a :href="p.github" target="_blank" class="flex-1 group relative bg-slate-900 text-white text-center py-3.5 rounded-2xl text-xs font-bold uppercase overflow-hidden transition-all">
+                                <span class="relative z-10">GitHub</span>
+                                <div class="absolute inset-0 bg-indigo-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                            </a>
+                            <a :href="p.huggingface" target="_blank" class="flex-1 bg-white border-2 border-indigo-600 text-indigo-600 text-center py-3.5 rounded-2xl text-xs font-bold uppercase hover:bg-indigo-600 hover:text-white transition-all">Live Demo</a>
                         </div>
                     </div>
                 </div>
@@ -73,8 +84,11 @@
         </div>
     </main>
 
-    <footer class="bg-white border-t py-12 text-center mt-12">
-        <p class="text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em]">© 2026 Basak Tamer | Professional Data Science Portfolio</p>
+    <footer class="bg-slate-900 text-white py-20 mt-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="text-2xl font-black uppercase tracking-[0.5em] mb-4">Basak Tamer</h2>
+            <p class="text-slate-500 text-xs font-bold uppercase tracking-widest">Driven by Data. Defined by Results.</p>
+        </div>
     </footer>
 
     <script>
@@ -83,38 +97,38 @@
                 search: '',
                 filter: 'all',
                 projects: [
-                    // DS SERIES (Specialize) - Exact Data from Excel
+                    // DATA FROM EXCEL (Cleaned & English)
                     {id: "DS-01", title: "Iris Flower Classification", type: "Specialize", image: "https://ai-toolkit-generations.imgix.net/content/-t-e-x-t_-t-o_-i-m-a-g-e-v1/media__7/image-84828f2d-f7f4-41e6-837b-24cb0c6bc7b9.png", github: "https://github.com/basaktamer/DS-01-Iris-Flower-Classification/", huggingface: "https://huggingface.co/spaces/basaktamer/Iris_Flower_Classification", tech: "Random Forest Classifier", metric: "100% Accuracy / 1.00 F1"},
                     {id: "DS-02", title: "Credit Score Classification", type: "Specialize", image: "https://i0.wp.com/centssavvy.com/wp-content/uploads/2025/01/seo_760-credit-score_032824.jpg", github: "https://github.com/basaktamer/DS-02-Credit-Score-Classification", huggingface: "https://huggingface.co/spaces/basaktamer/Credit_Score_Classification", tech: "Random Forest Classifier", metric: "F1-Score: 0.788"},
-                    {id: "DS-03", title: "Flower Recognition", type: "Specialize", image: "https://ai-toolkit-generations.imgix.net/content/-t-e-x-t_-t-o_-i-m-a-g-e-v1/media__3/image-21cd86d8-c511-4012-bfc3-538b848be4fd.png", github: "https://github.com/basaktamer/DS-03-Flower-Classification-CNN-Model-Transfer-Learning", huggingface: "https://huggingface.co/spaces/basaktamer/Flower_Recognition", tech: "MobileNetV2 Transfer Learning", metric: "92.1% Val Accuracy"},
+                    {id: "DS-03", title: "Flower Recognition", type: "Specialize", image: "https://ai-toolkit-generations.imgix.net/content/-t-e-x-t_-t-o_-i-m-a-g-e-v1/media__3/image-21cd86d8-c511-4012-bfc3-538b848be4fd.png", github: "https://github.com/basaktamer/DS-03-Flower-Classification-CNN-Model-Transfer-Learning", huggingface: "https://huggingface.co/spaces/basaktamer/Flower_Recognition", tech: "MobileNetV2 CNN", metric: "92.1% Validation Acc"},
                     {id: "DS-04", title: "Clustering Music Genres", type: "Specialize", image: "https://www.marketingturkiye.com.tr/wp-content/uploads/2025/08/spotify-2.png.webp", github: "https://github.com/basaktamer/DS-04-Clustering-Music-Genres", huggingface: "https://huggingface.co/spaces/basaktamer/Clustering_Music_Genres", tech: "K-Means Clustering", metric: "Silhouette: 0.33"},
-                    {id: "DS-05", title: "Online Shopping Intention Analysis with Clustering", type: "Specialize", image: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Frrtxj28t4g4h7optw447.jpg", github: "https://github.com/basaktamer/DS-05-Online-Shopping-Intention-Analysis-with-Clustering", huggingface: "https://huggingface.co/spaces/basaktamer/Online_Shopping_Intention_Analysis_with_Clustering", tech: "K-Means", metric: "Optimized Silhouette"},
+                    {id: "DS-05", title: "Online Shopping Intention Analysis with Clustering", type: "Specialize", image: "https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Frrtxj28t4g4h7optw447.jpg", github: "https://github.com/basaktamer/DS-05-Online-Shopping-Intention-Analysis-with-Clustering", huggingface: "https://huggingface.co/spaces/basaktamer/Online_Shopping_Intention_Analysis_with_Clustering", tech: "Unsupervised K-Means", metric: "Silhouette Optimization"},
                     {id: "DS-06", title: "Credit Card Clustering", type: "Specialize", image: "https://www.creditcanada.com/hubfs/bz-cc/Blog/credit-cards-on-table.jpeg", github: "https://github.com/basaktamer/DS-06-Credit-Card-Clustering", huggingface: "https://huggingface.co/spaces/basaktamer/Credit_Card_Clustering", tech: "K-Means Clustering", metric: "WCSS / Elbow Method"},
-                    {id: "DS-07", title: "New York City Bicycle Counts Time Series", type: "Specialize", image: "https://s.hdnux.com/photos/15/51/21/3576924/4/1920x0.jpg", github: "https://github.com/basaktamer/DS-07-New-York-City-Bicycle-Counts-Time-Series", huggingface: "https://huggingface.co/spaces/basaktamer/New_York_City_Bicycle_Counts_Time_Series", tech: "SARIMAX Model", metric: "AIC & MAE Optimization"},
-                    {id: "DS-08", title: "Tesla Stock Price Prediction Time Series", type: "Specialize", image: "https://graphicsprings.com/wp-content/uploads/2023/07/image-173.png", github: "https://github.com/basaktamer/DS-08-Tesla-Stock-Price-Prediction-Time-Series", huggingface: "https://huggingface.co/spaces/basaktamer/Tesla_Stock_Price_Prediction_Time_Series", tech: "SARIMA, Prophet, LSTM", metric: "RMSE & MAPE"},
-                    {id: "DS-09", title: "Birth Rate Analysis Time Series", type: "Specialize", image: "https://www.biologyonline.com/wp-content/uploads/2020/02/Birth-of-a-Human-Baby.jpg", github: "https://github.com/basaktamer/DS-09-Birth-Rate-Analysis-Time-Series", huggingface: "https://huggingface.co/spaces/basaktamer/Birth_Rate_Analysis_Time_Series", tech: "Seasonal Decomposition", metric: "Historical Count Accuracy"},
-                    {id: "DS-10", title: "Waiter Tips Data Visualization", type: "Specialize", image: "https://www.shutterstock.com/shutterstock/videos/3419168885/thumb/6.jpg", github: "https://github.com/basaktamer/DS-10-Waiter-Tips-Data-Visualization", huggingface: "https://huggingface.co/spaces/basaktamer/Waiter_Tips_Data_Visualization", tech: "Multivariate EDA", metric: "Tip Percentage Ratio"},
-                    {id: "DS-11", title: "Uber Trips Data Visualization", type: "Specialize", image: "https://img.cnbce.com/2/1280/720/storage/files/images/2025/12/16/ubere-abonelik-davasi.jpg", github: "https://github.com/basaktamer/DS-11-Uber-Trips-Data-Visualization", huggingface: "https://huggingface.co/spaces/basaktamer/Uber_Trips_Data_Visualization", tech: "Temporal Aggregation", metric: "HTD (Hourly Density)"},
-                    {id: "DS-12", title: "Store Sales and Profit Data Visualization", type: "Specialize", image: "https://thumbs.dreamstime.com/b/giant-food-store-entrance.jpg", github: "https://github.com/basaktamer/DS-12-Store-Sales-and-Profit-Data-Visualization", huggingface: "https://huggingface.co/spaces/basaktamer/Store_Sales_and_Profit_Data_Visualization", tech: "Pandas GroupBy & Pivot", metric: "Net Profit Margin %"},
-                    {id: "DS-13", title: "Food Delivery Time Prediction", type: "Specialize", image: "https://storage.googleapis.com/kaggle-datasets-images/6360611/10279123/3415b18b027a097fc8554b60c66f8839/dataset-cover.jpg", github: "https://github.com/basaktamer/DS-13-Food-Delivery-Time-Prediction", huggingface: "https://huggingface.co/spaces/basaktamer/Food_Delivery_Time_Prediction", tech: "Gradient Boosting Regressor", metric: "R-Squared: 0.81"},
-                    {id: "DS-14", title: "Health Insurance Premium Prediction", type: "Specialize", image: "https://storage.googleapis.com/kaggle-datasets-images/8129551/12853160/83b336ea7f928c215b00bfb0681810f1/dataset-cover.jpg", github: "https://github.com/basaktamer/DS-14-Health-Insurance-Premium-Prediction", huggingface: "https://huggingface.co/spaces/basaktamer/Medical_Insurance_Cost_Prediction", tech: "Gradient Boosting Regressor", metric: "R2 Score: 0.878"},
+                    {id: "DS-07", title: "New York City Bicycle Counts Time Series", type: "Specialize", image: "https://s.hdnux.com/photos/15/51/21/3576924/4/1920x0.jpg", github: "https://github.com/basaktamer/DS-07-New-York-City-Bicycle-Counts-Time-Series", huggingface: "https://huggingface.co/spaces/basaktamer/New_York_City_Bicycle_Counts_Time_Series", tech: "SARIMAX(1, 1, 1)", metric: "AIC & MAE Optimized"},
+                    {id: "DS-08", title: "Tesla Stock Price Prediction Time Series", type: "Specialize", image: "https://graphicsprings.com/wp-content/uploads/2023/07/image-173.png", github: "https://github.com/basaktamer/DS-08-Tesla-Stock-Price-Prediction-Time-Series", huggingface: "https://huggingface.co/spaces/basaktamer/Tesla_Stock_Price_Prediction_Time_Series", tech: "Prophet & LSTM Hybrid", metric: "RMSE: Optimized"},
+                    {id: "DS-09", title: "Birth Rate Analysis Time Series", type: "Specialize", image: "https://www.biologyonline.com/wp-content/uploads/2020/02/Birth-of-a-Human-Baby.jpg", github: "https://github.com/basaktamer/DS-09-Birth-Rate-Analysis-Time-Series", huggingface: "https://huggingface.co/spaces/basaktamer/Birth_Rate_Analysis_Time_Series", tech: "Seasonal Decomposition", metric: "Daily Count Trends"},
+                    {id: "DS-10", title: "Waiter Tips Data Visualization", type: "Specialize", image: "https://www.shutterstock.com/shutterstock/videos/3419168885/thumb/6.jpg", github: "https://github.com/basaktamer/DS-10-Waiter-Tips-Data-Visualization", huggingface: "https://huggingface.co/spaces/basaktamer/Waiter_Tips_Data_Visualization", tech: "Exploratory Data Analysis", metric: "Tip Ratio Trends"},
+                    {id: "DS-11", title: "Uber Trips Data Visualization", type: "Specialize", image: "https://img.cnbce.com/2/1280/720/storage/files/images/2025/12/16/ubere-abonelik-davasi.jpg", github: "https://github.com/basaktamer/DS-11-Uber-Trips-Data-Visualization", huggingface: "https://huggingface.co/spaces/basaktamer/Uber_Trips_Data_Visualization", tech: "Temporal Aggregation", metric: "Hourly Density Map"},
+                    {id: "DS-12", title: "Store Sales and Profit Data Visualization", type: "Specialize", image: "https://thumbs.dreamstime.com/b/giant-food-store-entrance.jpg", github: "https://github.com/basaktamer/DS-12-Store-Sales-and-Profit-Data-Visualization", huggingface: "https://huggingface.co/spaces/basaktamer/Store_Sales_and_Profit_Data_Visualization", tech: "Multivariate Visualization", metric: "Profit Margin Analysis"},
+                    {id: "DS-13", title: "Food Delivery Time Prediction", type: "Specialize", image: "https://storage.googleapis.com/kaggle-datasets-images/6360611/10279123/3415b18b027a097fc8554b60c66f8839/dataset-cover.jpg", github: "https://github.com/basaktamer/DS-13-Food-Delivery-Time-Prediction", huggingface: "https://huggingface.co/spaces/basaktamer/Food_Delivery_Time_Prediction", tech: "Gradient Boosting", metric: "R-Squared: 0.81"},
+                    {id: "DS-14", title: "Health Insurance Premium Prediction", type: "Specialize", image: "https://storage.googleapis.com/kaggle-datasets-images/8129551/12853160/83b336ea7f928c215b00bfb0681810f1/dataset-cover.jpg", github: "https://github.com/basaktamer/DS-14-Health-Insurance-Premium-Prediction", huggingface: "https://huggingface.co/spaces/basaktamer/Medical_Insurance_Cost_Prediction", tech: "Gradient Boosting", metric: "R2 Score: 0.878"},
                     {id: "DS-15", title: "Diamond Price Prediction", type: "Specialize", image: "https://cdn.britannica.com/15/214515-050-2AB72256/jewelrs-tweezers-holding-a-diamond.jpg", github: "https://github.com/basaktamer/DS-15-Diamond-Price-Prediction", huggingface: "https://huggingface.co/spaces/basaktamer/Diamond_Price_Prediction", tech: "XGBRegressor", metric: "R-Squared: 0.981"},
-                    {id: "DS-16", title: "Trip Advisor Hotel Reviews", type: "Specialize", image: "https://www.designmantic.com/blog/wp-content/uploads/2025/08/Tripadvisor-Logo.jpg", github: "https://github.com/basaktamer/DS-16-Trip-Advisor-Hotel-Reviews", huggingface: "https://huggingface.co/spaces/basaktamer/Trip_Advisor_Sentiment_Analysis", tech: "Artificial Neural Network", metric: "98.22% Test Accuracy"},
-                    {id: "DS-17", title: "IMDB Movie Reviews", type: "Specialize", image: "https://logodix.com/logo/1592425.png", github: "https://github.com/basaktamer/DS-17-IMDB-Movie-Reviews", huggingface: "https://huggingface.co/spaces/basaktamer/IMDB_Movie_Review", tech: "Sequential ANN (Dense)", metric: "87.12% Test Accuracy"},
-                    {id: "DS-18", title: "Amazon Alexa Reviews", type: "Specialize", image: "https://upload.wikimedia.org/wikipedia/commons/c/c1/Amazon_Alexa_logo.png", github: "https://github.com/basaktamer/DS-18-Amazon-Alexa-Reviews", huggingface: "https://huggingface.co/spaces/basaktamer/Amazon_Alexa_Reviews", tech: "Neural Network", metric: "91% Accuracy"},
-                    {id: "DS-19", title: "Web Scraping & Real Estate Rent Prediction", type: "Specialize", image: "https://www.shutterstock.com/image-photo/real-estate-concept-house-model-600nw-1941655612.jpg", github: "https://github.com/basaktamer/DS-19-Web-Scraping-Rent-Prediction", huggingface: "https://huggingface.co/spaces/basaktamer/Rent_Predictor", tech: "Selenium / Stealth Chrome", metric: "1400+ Rows Extracted"},
-                    {id: "DS-20", title: "Credit Card Fraud Detection", type: "Specialize", image: "https://www.investopedia.com/thmb/9W6VzM7Y_Xp7F9kR0P8z-v1IuR4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Credit-Card-Fraud-Detection.jpg", github: "https://github.com/basaktamer/DS-20-Credit-Card-Fraud-Detection", huggingface: "https://huggingface.co/spaces/basaktamer/Credit_Card_Fraud_Detection", tech: "Logistic Regression", metric: "Optimized Recall"},
-                    {id: "DS-21", title: "Movie Recommender", type: "Specialize", image: "https://media.timeout.com/images/105771947/750/562/image.jpg", github: "https://github.com/basaktamer/DS-21-Movie-Recommendation-System", huggingface: "https://huggingface.co/spaces/basaktamer/Movie_Recommender", tech: "TF-IDF / Cosine Similarity", metric: "Similarity Score Index"},
+                    {id: "DS-16", title: "Trip Advisor Hotel Reviews", type: "Specialize", image: "https://www.designmantic.com/blog/wp-content/uploads/2025/08/Tripadvisor-Logo.jpg", github: "https://github.com/basaktamer/DS-16-Trip-Advisor-Hotel-Reviews", huggingface: "https://huggingface.co/spaces/basaktamer/Trip_Advisor_Sentiment_Analysis", tech: "Artificial Neural Network", metric: "98.22% Accuracy"},
+                    {id: "DS-17", title: "IMDB Movie Reviews", type: "Specialize", image: "https://logodix.com/logo/1592425.png", github: "https://github.com/basaktamer/DS-17-IMDB-Movie-Reviews", huggingface: "https://huggingface.co/spaces/basaktamer/IMDB_Movie_Review", tech: "Deep Learning (ANN)", metric: "87.12% Test Accuracy"},
+                    {id: "DS-18", title: "Amazon Alexa Reviews", type: "Specialize", image: "https://upload.wikimedia.org/wikipedia/commons/c/c1/Amazon_Alexa_logo.png", github: "https://github.com/basaktamer/DS-18-Amazon-Alexa-Reviews", huggingface: "https://huggingface.co/spaces/basaktamer/Amazon_Alexa_Reviews", tech: "Sequential Neural Net", metric: "91% Validation Acc"},
+                    {id: "DS-19", title: "Web Scraping & Real Estate Rent Prediction", type: "Specialize", image: "https://www.shutterstock.com/image-photo/real-estate-concept-house-model-600nw-1941655612.jpg", github: "https://github.com/basaktamer/DS-19-Web-Scraping-Rent-Prediction", huggingface: "https://huggingface.co/spaces/basaktamer/Rent_Predictor", tech: "Selenium & Regression", metric: "1400+ Rows Cleaned"},
+                    {id: "DS-20", title: "Credit Card Fraud Detection", type: "Specialize", image: "https://www.investopedia.com/thmb/9W6VzM7Y_Xp7F9kR0P8z-v1IuR4=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Credit-Card-Fraud-Detection.jpg", github: "https://github.com/basaktamer/DS-20-Credit-Card-Fraud-Detection", huggingface: "https://huggingface.co/spaces/basaktamer/Credit_Card_Fraud_Detection", tech: "Logistic Regression", metric: "F1 Score Focused"},
+                    {id: "DS-21", title: "Movie Recommender", type: "Specialize", image: "https://media.timeout.com/images/105771947/750/562/image.jpg", github: "https://github.com/basaktamer/DS-21-Movie-Recommendation-System", huggingface: "https://huggingface.co/spaces/basaktamer/Movie_Recommender", tech: "TF-IDF / Cosine Similarity", metric: "Content-Based Filtering"},
 
-                    // KAGGLE SERIES (C) - Exact Data from Excel
-                    {id: "C-01", title: "Predicting Irrigation Need", type: "Kaggle", image: "https://www.kaggle.com/competitions/125220/images/header", github: "https://github.com/basaktamer/C1-Predicting-Irrigation-Need", huggingface: "https://huggingface.co/spaces/basaktamer/Predicting_Irrigation_Need", tech: "RandomForestClassifier", metric: "Balanced Accuracy"},
+                    // KAGGLE COMPETITIONS (C)
+                    {id: "C-01", title: "Predicting Irrigation Need", type: "Kaggle", image: "https://www.kaggle.com/competitions/125220/images/header", github: "https://github.com/basaktamer/C1-Predicting-Irrigation-Need", huggingface: "https://huggingface.co/spaces/basaktamer/Predicting_Irrigation_Need", tech: "Random Forest", metric: "Balanced Accuracy"},
                     {id: "C-02", title: "Predicting F1 Pit Stops", type: "Kaggle", image: "https://www.kaggle.com/competitions/126107/images/header", github: "https://github.com/basaktamer/C2-Predicting-F1-Pit-Stops", huggingface: "https://huggingface.co/spaces/basaktamer/Predicting_F1_Pit_Stops", tech: "CatBoost Classifier", metric: "ROC-AUC: 0.9446"},
                     {id: "C-03", title: "Predicting Used Car Prices", type: "Kaggle", image: "https://www.kaggle.com/competitions/78263/images/header", github: "https://github.com/basaktamer/C3-Predicting-Used-Car-Prices", huggingface: "https://huggingface.co/spaces/basaktamer/Predicting_Used_Car_Prices", tech: "XGBoost Regressor", metric: "RMSE"},
                     {id: "C-04", title: "Health Insurance Cross Sell Prediction", type: "Kaggle", image: "https://www.kaggle.com/competitions/76044/images/header", github: "https://github.com/basaktamer/C4-Health-Insurance-Cross-Sell-Prediction", huggingface: "https://huggingface.co/spaces/basaktamer/Health_Insurance_Cross_Sell_Prediction", tech: "LightGBM", metric: "ROC AUC Score"},
-                    {id: "C-05", title: "Bank Churn Prediction", type: "Kaggle", image: "https://www.kaggle.com/competitions/70087/images/header", github: "https://github.com/basaktamer/C5-Bank-Churn-Prediction", huggingface: "https://huggingface.co/spaces/basaktamer/Bank_Churn_Prediction", tech: "XGBoost Classifier", metric: "ROC AUC"},
-                    {id: "C-06", title: "Regression with an Abalone Dataset", type: "Kaggle", image: "https://www.kaggle.com/competitions/72489/images/header", github: "https://github.com/basaktamer/C6-Regression-with-an-Abalone-Dataset", huggingface: "https://huggingface.co/spaces/basaktamer/Regression_with_an_Abalone_Dataset", tech: "XGBoost Regressor", metric: "RMSLE Score"},
-                    {id: "C-07", title: "Multi-Class Prediction of Obesity Risk", type: "Kaggle", image: "https://www.kaggle.com/competitions/71335/images/header", github: "https://github.com/basaktamer/C7-Multi-Class-Prediction-of-Obesity-Risk", huggingface: "https://huggingface.co/spaces/basaktamer/Multi-Class_Prediction_of_Obesity_Risk", tech: "LightGBM", metric: "Accuracy Score"},
-                    {id: "C-08", title: "Spaceship Titanic", type: "Kaggle", image: "https://www.kaggle.com/competitions/34377/images/header", github: "https://github.com/basaktamer/C8-Spaceship-Titanic", huggingface: "https://huggingface.co/spaces/basaktamer/Spaceship_Titanic", tech: "Random Forest", metric: "Prediction Accuracy"},
+                    {id: "C-05", title: "Bank Churn Prediction", type: "Kaggle", image: "https://www.kaggle.com/competitions/70087/images/header", github: "https://github.com/basaktamer/C5-Bank-Churn-Prediction", huggingface: "https://huggingface.co/spaces/basaktamer/Bank_Churn_Prediction", tech: "XGBoost", metric: "ROC AUC"},
+                    {id: "C-06", title: "Regression with an Abalone Dataset", type: "Kaggle", image: "https://www.kaggle.com/competitions/72489/images/header", github: "https://github.com/basaktamer/C6-Regression-with-an-Abalone-Dataset", huggingface: "https://huggingface.co/spaces/basaktamer/Regression_with_an_Abalone_Dataset", tech: "XGBoost", metric: "RMSLE"},
+                    {id: "C-07", title: "Multi-Class Prediction of Obesity Risk", type: "Kaggle", image: "https://www.kaggle.com/competitions/71335/images/header", github: "https://github.com/basaktamer/C7-Multi-Class-Prediction-of-Obesity-Risk", huggingface: "https://huggingface.co/spaces/basaktamer/Multi-Class_Prediction_of_Obesity_Risk", tech: "LightGBM", metric: "Accuracy"},
+                    {id: "C-08", title: "Spaceship Titanic", type: "Kaggle", image: "https://www.kaggle.com/competitions/34377/images/header", github: "https://github.com/basaktamer/C8-Spaceship-Titanic", huggingface: "https://huggingface.co/spaces/basaktamer/Spaceship_Titanic", tech: "Random Forest", metric: "Accuracy"},
                     {id: "C-09", title: "Titanic - Machine Learning from Disaster", type: "Kaggle", image: "https://www.kaggle.com/competitions/3136/images/header", github: "https://github.com/basaktamer/C9-Titanic-Machine-Learning-from-Disaster", huggingface: "https://huggingface.co/spaces/basaktamer/Titanic_Survival_Prediction", tech: "Logistic Regression", metric: "Accuracy"},
                     {id: "C-10", title: "Store Sales - Time Series Forecasting", type: "Kaggle", image: "https://www.kaggle.com/competitions/29781/images/header", github: "https://github.com/basaktamer/C10-Store-Sales-Time-Series-Forecasting", huggingface: "https://huggingface.co/spaces/basaktamer/Store_Sales_Forecasting", tech: "XGBoost", metric: "RMSLE"},
                     {id: "C-11", title: "House Prices - Advanced Regression Techniques", type: "Kaggle", image: "https://www.kaggle.com/competitions/5407/images/header", github: "https://github.com/basaktamer/C11-House-Prices-Advanced-Regression-Techniques", huggingface: "https://huggingface.co/spaces/basaktamer/House_Prices_Prediction", tech: "Lasso/Ridge Regression", metric: "RMSLE"},
