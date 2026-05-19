@@ -28,6 +28,9 @@
         }
         header h1 { font-size: 3rem; margin: 0; font-weight: 800; letter-spacing: -1px; }
         header p { font-size: 1.2rem; opacity: 0.8; margin-top: 10px; }
+        header .header-meta { margin-top: 15px; font-size: 0.95rem; }
+        header .header-meta a { color: #60a5fa; text-decoration: none; font-weight: 600; }
+        header .header-meta a:hover { text-decoration: underline; }
 
         .controls { 
             max-width: 1200px; 
@@ -49,6 +52,19 @@
             cursor: pointer;
         }
         .tab-btn.active { background: var(--primary); color: white; }
+
+        .ln-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 25px;
+            border-radius: 50px;
+            background: #0a66c2;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 6px -1px rgba(10, 102, 194, 0.2);
+        }
+        .ln-btn:hover { background: #004182; transform: translateY(-2px); }
 
         .filter-cloud { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
         .filter-btn { 
@@ -106,14 +122,18 @@
         @media (max-width: 768px) {
             .grid { grid-template-columns: 1fr; }
             header h1 { font-size: 2rem; }
+            .track-tabs { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Data Science Bootcamp Portfolio</h1>
+    <h1>Mastering Applied Data Science</h1>
     <p>Başak Tamer • 50 Applied Machine Learning Projects</p>
+    <div class="header-meta">
+        <a href="https://www.linkedin.com/in/basaktamer/" target="_blank" rel="noopener noreferrer">🔗 Connect on LinkedIn</a>
+    </div>
 </header>
 
 <div class="controls">
@@ -121,6 +141,7 @@
         <button class="tab-btn active" onclick="setTrack('specialize')">Specialize in Data Science (DS)</button>
         <button class="tab-btn" onclick="setTrack('pro')">Become a Pro: Kaggle (C)</button>
         <button class="tab-btn" onclick="setTrack('class')">Class Projects (P)</button>
+        <a href="https://www.linkedin.com/in/basaktamer/" target="_blank" rel="noopener noreferrer" class="ln-btn">LinkedIn Profile</a>
     </div>
     <div class="filter-cloud" id="filterCloud"></div>
 </div>
@@ -130,7 +151,7 @@
 </div>
 
 <footer>
-    <p>© 2024-2025 Başak Tamer. Built with Data and Passion.</p>
+    <p>© 2024-2026 Başak Tamer. Built with Data and Passion.</p>
 </footer>
 
 <script>
@@ -145,8 +166,8 @@
         { track: 'specialize', id: "DS-07", title: "NYC Bicycle Counts", cat: "Time Series", img: "https://s.hdnux.com/photos/15/51/21/3576924/4/1920x0.jpg", l1: "SARIMAX Models", l2: "AIC & MAE Optimization", l3: "Bimodal Commuter Pattern Analysis", links: { hf: "https://huggingface.co/spaces/basaktamer/NYC_Bicycle_Counts_Time_Series", kg: "N/A", gh: "https://github.com/basaktamer/DS-07-New-York-City-Bicycle-Counts-Time-Series" } },
         { track: 'specialize', id: "DS-08", title: "Tesla Stock Price", cat: "Time Series", img: "https://graphicsprings.com/wp-content/uploads/2023/07/image-173.png", l1: "Hybrid (Prophet/LSTM)", l2: "RMSE & MAPE", l3: "Volatility Filtering for Momentum", links: { hf: "https://huggingface.co/spaces/basaktamer/Tesla_Stock_Price_Prediction_Time_Series", kg: "N/A", gh: "https://github.com/basaktamer/DS-08-Tesla-Stock-Price-Prediction-Time-Series" } },
         { track: 'specialize', id: "DS-09", title: "Birth Rate Analysis", cat: "Time Series", img: "https://www.biologyonline.com/wp-content/uploads/2020/02/Birth-of-a-Human-Baby.jpg", l1: "Prophet Decomposition", l2: "Growth Rate Metrics", l3: "Demographic Intelligence", links: { hf: "https://huggingface.co/spaces/basaktamer/Birth_Rates_Time_Series", kg: "N/A", gh: "https://github.com/basaktamer/DS-09-Birth-Rate-Analysis-Time-Series" } },
-        { track: 'specialize', id: "DS-10", title: "Waiter Tips Visualization", cat: "Data Vis", img: "https://www.shutterstock.com/shutterstock/videos/3419168885/thumb/6.jpg", l1: "Bivariate EDA", l2: "Tip Percentage Ratio", l3: "Peak Gratuity Windows", links: { hf: "https://huggingface.co/spaces/aibasak/Waiter_Tips_Data_Visualization", kg: "N/A", gh: "https://github.com/basaktamer/DS-10-Waiter-Tips-Data-Visualization" } },
-        { track: 'specialize', id: "DS-11", title: "Uber Trips Visualization", cat: "Data Vis", img: "https://storage.googleapis.com/kaggle-datasets-images/8032385/12709117/09f5959223f9b52bd29c4c23d4fdc1fc/dataset-cover.png?t=2025-08-08-10-27-00", l1: "Temporal Engineering", l2: "Hourly Trip Density", l3: "Double-Peak Revenue Opportunity", links: { hf: "https://huggingface.co/spaces/aibasak/Uber_Trips_Data_Visualization", kg: "N/A", gh: "https://github.com/basaktamer/DS-11-Uber-Trips-Data-Visualization" } },
+        { track: 'specialize', id: "DS-10", title: "Waiter Tips Visualization", cat: "Data Vis", img: "https://www.shutterstock.com/shutterstock/videos/3419168885/thumb/6.jpg", l1: "Bivariate EDA", l2: "Tip Percentage Ratio", l3: "Peak Gratuity Windows", links: { hf: "https://huggingface.co/spaces/basaktamer/Waiter_Tips_Data_Visualization", kg: "N/A", gh: "https://github.com/basaktamer/DS-10-Waiter-Tips-Data-Visualization" } },
+        { track: 'specialize', id: "DS-11", title: "Uber Trips Visualization", cat: "Data Vis", img: "https://storage.googleapis.com/kaggle-datasets-images/8032385/12709117/09f5959223f9b52bd29c4c23d4fdc1fc/dataset-cover.png?t=2025-08-08-10-27-00", l1: "Temporal Engineering", l2: "Hourly Trip Density", l3: "Double-Peak Revenue Opportunity", links: { hf: "https://huggingface.co/spaces/basaktamer/Uber_Trips_Data_Visualization", kg: "N/A", gh: "https://github.com/basaktamer/DS-11-Uber-Trips-Data-Visualization" } },
         { track: 'specialize', id: "DS-12", title: "Store Sales & Profit", cat: "Data Vis", img: "https://storage.googleapis.com/kaggle-datasets-images/1940216/3196104/253ccc4a60c942a8d3ca5c67899d1dbf/dataset-cover.jpg", l1: "Multivariate Aggregation", l2: "Net Profit Margin", l3: "Discount Sensitivity Analysis", links: { hf: "https://huggingface.co/spaces/basaktamer/store_sales_profit_data_visualization", kg: "https://www.kaggle.com/code/basaktamer/store-sales-and-profit-data-visualization", gh: "https://github.com/basaktamer/DS-12-Store-Sales-and-Profit-Data-Visualization" } },
         { track: 'specialize', id: "DS-13", title: "Food Delivery Time", cat: "Regression", img: "https://storage.googleapis.com/kaggle-datasets-images/6360611/10279123/3415b18b027a097fc8554b60c66f8839/dataset-cover.jpg", l1: "Gradient Boosting (GBM)", l2: "R2: 0.81 | MAE: 6.5m", l3: "ETA Reliability Analysis", links: { hf: "https://huggingface.co/spaces/basaktamer/food_delivery_time_prediction", kg: "https://www.kaggle.com/code/basaktamer/food-delivery-time-prediction", gh: "https://github.com/basaktamer/DS-13-Food-Delivery-Time-Prediction" } },
         { track: 'specialize', id: "DS-14", title: "Insurance Premium", cat: "Regression", img: "https://storage.googleapis.com/kaggle-datasets-images/8129551/12853160/83b336ea7f928c215b00bfb0681810f1/dataset-cover.jpg", l1: "Gradient Boosting", l2: "R-Squared: 0.878", l3: "Lifestyle Choice Cost Drivers", links: { hf: "https://huggingface.co/spaces/basaktamer/medical_insurance_cost_prediction", kg: "https://www.kaggle.com/code/basaktamer/medical-insurance-cost-prediction", gh: "https://github.com/basaktamer/DS-14-Health-Insurance-Premium-Prediction" } },
@@ -180,7 +201,7 @@
         { track: 'pro', id: "C-19", title: "Bank Deposit Predictor", cat: "Classification", img: "https://www.kaggle.com/competitions/91719/images/header", l1: "XGBoost (Imbalance Handling)", l2: "ROC AUC Score", l3: "Contact Duration Predictor", links: { hf: "https://huggingface.co/spaces/basaktamer/Bank_Deposit_Predictor", kg: "https://www.kaggle.com/code/basaktamer/binary-classification-with-a-bank-dataset", gh: "https://github.com/basaktamer/C19-Binary-Classification-with-a-Bank-Dataset" } },
         { track: 'pro', id: "C-20", title: "Introvert or Extrovert", cat: "Classification", img: "https://www.kaggle.com/competitions/91718/images/header", l1: "Logistic Regression", l2: "Accuracy Score", l3: "Median/Mode Imputation Strategy", links: { hf: "https://huggingface.co/spaces/basaktamer/Introvert_or_Extrovert", kg: "https://www.kaggle.com/code/basaktamer/predict-the-introverts-from-the-extroverts", gh: "https://github.com/basaktamer/C20-Predict-the-Introverts-from-the-Extroverts" } },
 
-        // TRACK 3: CLASS PROJECTS (P) - EXACT NAMES APPLIED
+        // TRACK 3: CLASS PROJECTS (P)
         { track: 'class', id: "P-1", title: "Regression Final Project ", cat: "Regression", img: "https://storage.googleapis.com/kaggle-datasets-images/2302865/3874693/c528794abebefecb3d4221d73ba433bb/dataset-cover.jpg?t=2022-06-28-12-04-09", l1: "XGBoost, CatBoost, and ANN", l2: "R², MAE, and RMSE", l3: "Web Scraping & Market Anomaly Detection", links: { hf: "https://huggingface.co/spaces/basaktamer/AdanaRentPrediction", kg: "N/A", gh: "https://github.com/basaktamer/P-1-Regression-Final-Project" } },
         { track: 'class', id: "P-2", title: "Image Classification with CNN for CIFAR_10 Data", cat: "Computer Vision", img: "https://storage.googleapis.com/kaggle-datasets-images/11102/15444/c2a3fda606c62065a0915b4df818e88a/dataset-cover.jpg?t=2018-01-27-13-53-24", l1: "Custom CNN & ResNet50", l2: "Validation Accuracy & F1", l3: "Data Augmentation on low-res images", links: { hf: "https://huggingface.co/spaces/basaktamer/Cifar10ResNet50V2Classifier", kg: "https://www.kaggle.com/code/basaktamer/image-classification-with-cnn-for-cifar-10-data", gh: "https://github.com/basaktamer/P-2-Image-Classification-with-CNN-for-CIFAR_10-Data" } },
         { track: 'class', id: "P-3", title: "Image Classification with CNN for Malaria", cat: "Medical AI", img: "https://plusify.in/wp-content/uploads/2024/06/Malaria.jpeg", l1: "VGG16 and ResNet Transfer Learning", l2: "Accuracy & Confusion Matrix", l3: "Reliable Parasitized vs Uninfected identification", links: { hf: "https://huggingface.co/spaces/basaktamer/MalariaClassification", kg: "https://www.kaggle.com/code/basaktamer/malaria-cell-classification-cnn-97-94-tl-92-19", gh: "https://github.com/basaktamer/P-3-Image-Classification-with-CNN-for-Malaria-Data" } },
@@ -212,49 +233,48 @@
     }
 
     function renderFilters() {
-        const cats = ['All', ...new Set(projects.filter(p => p.track === currentTrack).map(p => p.cat))];
+        const filtered = projects.filter(p => p.track === currentTrack);
+        const categories = ['All', ...new Set(filtered.map(p => p.cat))];
         const cloud = document.getElementById('filterCloud');
-        cloud.innerHTML = cats.map(c => `
-            <button class="filter-btn ${currentFilter === c ? 'active' : ''}" onclick="setFilter('${c}')">${c}</button>
+        
+        cloud.innerHTML = categories.map(cat => `
+            <button class="filter-btn ${cat === currentFilter ? 'active' : ''}" onclick="setFilter('${cat}')">
+                ${cat}
+            </button>
         `).join('');
     }
 
     function renderGrid() {
+        const grid = document.getElementById('projectGrid');
         const filtered = projects.filter(p => 
             p.track === currentTrack && (currentFilter === 'All' || p.cat === currentFilter)
         );
-        const grid = document.getElementById('projectGrid');
-        
-        grid.innerHTML = filtered.map(p => {
-            const isKgNA = p.links.kg === "N/A" || !p.links.kg;
-            const isHfNA = p.links.hf === "N/A" || !p.links.hf;
-            
-            return `
-                <div class="card">
-                    <img src="${p.img}" class="card-img" onerror="this.src='https://via.placeholder.com/400x200?text=Data+Science+Project'">
-                    <div class="card-body">
-                        <span class="card-id">${p.id}</span>
-                        <h2 class="card-title">${p.title}</h2>
-                        <span class="card-cat">${p.cat}</span>
-                        <div class="details">
-                            <p><strong>Method/Model:</strong> ${p.l1}</p>
-                            <p><strong>Metrics:</strong> ${p.l2}</p>
-                            <p><strong>Key Insight:</strong> ${p.l3}</p>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <a href="${p.links.hf}" target="_blank" class="btn-link btn-hf ${isHfNA ? 'disabled' : ''}">${isHfNA ? 'No App' : 'HF Space'}</a>
-                        <a href="${p.links.kg}" target="_blank" class="btn-link btn-kg ${isKgNA ? 'disabled' : ''}">${isKgNA ? 'No Code' : 'Kaggle'}</a>
-                        <a href="${p.links.gh}" target="_blank" class="btn-link btn-gh">GitHub</a>
+
+        grid.innerHTML = filtered.map(p => `
+            <div class="card">
+                <img src="${p.img}" class="card-img" alt="${p.title}" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=400'">
+                <div class="card-body">
+                    <div class="card-id">${p.id}</div>
+                    <h3 class="card-title">${p.title}</h3>
+                    <span class="card-cat">${p.cat}</span>
+                    <div class="details">
+                        <p><strong>Architecture:</strong> ${p.l1}</p>
+                        <p><strong>Metrics:</strong> ${p.l2}</p>
+                        <p><strong>Business Case:</strong> ${p.l3}</p>
                     </div>
                 </div>
-            `;
-        }).join('');
+                <div class="card-footer">
+                    <a href="${p.links.hf}" target="_blank" rel="noopener noreferrer" class="btn-link btn-hf ${p.links.hf === 'N/A' ? 'disabled' : ''}">Hugging Face</a>
+                    <a href="${p.links.kg}" target="_blank" rel="noopener noreferrer" class="btn-link btn-kg ${p.links.kg === 'N/A' ? 'disabled' : ''}">Kaggle</a>
+                    <a href="${p.links.gh}" target="_blank" rel="noopener noreferrer" class="btn-link btn-gh ${p.links.gh === 'N/A' ? 'disabled' : ''}">GitHub</a>
+                </div>
+            </div>
+        `).join('');
     }
 
+    // Initial load configurations
     renderFilters();
     renderGrid();
 </script>
-
 </body>
 </html>
